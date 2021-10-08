@@ -122,10 +122,8 @@ Surfaces.prototype.ellipsparaboloid = (point = new Point(), size = 2, a = 1, b =
             }
         }
     }
-   // poly[0].color = {r: 0, g: 0, b: 0};
+    //poly[0].color = {r: 0, g: 0, b: 0};
     //poly[20].color = {r: 0, g: 0, b: 0};
-
-    console.log(poly);
 
     return new Subject(p, e, poly);
 
