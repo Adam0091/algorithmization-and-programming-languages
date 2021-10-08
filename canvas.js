@@ -18,4 +18,71 @@ class Canvas {
         this.WINDOW = WINDOW;
         this.PI2 = 2 * Math.PI;
     }
+    xs(x) {
+        return (x - this.WINDOW.LEFT) * (this.canvas.width / this.WINDOW.WIDTH);
+    }
+
+    ys(y) {
+        return (y - this.WINDOW.BOTTOM) * (this.canvas.height / this.WINDOW.HEIGHT);
+    }
+
+    xsPolygon(x) {
+        return  this.canvas.width / 2 + x * (this.canvas.width / this.WINDOW.WIDTH);
+    }
+
+    ysPolygon(y) {
+        return this.canvas.height / 2 +  y * (this.canvas.height / this.WINDOW.HEIGHT);
+    }
+
+    sx(x){
+        return x * this.WINDOW.WIDTH / this.canvas.width;
+    }
+    sy(y){
+        return -y * this.WINDOW.HEIGHT / this.canvas.height;
+    }
+
+
+    point(x, y, color = '#f00', size = 2) {
+        this.contextV.beginPath();
+        this.contextV.strokeStyle = color;
+        this.contextV.arc(this.xsPolygon(x), this.ysPolygon(y), size, 0, this.PI2);
+        this.contextV.stroke();
+    }
+
+    line(x1, y1, x2, y2, color = '#0f0', width = 2) {
+        this.contextV.beginPath();
+        this.contextV.strokeStyle = color;
+        this.contextV.lineWidth = width;
+        this.contextV.moveTo(this.xsPolygon(x1), this.ysPolygon(y1));
+        this.contextV.lineTo(this.xsPolygon(x2), this.ysPolygon(y2));
+        this.contextV.stroke();
+    }
+
+    clear = function () {
+        this.contextV.fillStyle = '#101010';
+        this.contextV.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+    
+    text(x, y, text, font = '30px bold Arial', color = 'white') {
+        this.contextV.fillStyle = color;
+        this.contextV.font = font;
+        this.contextV.fillText(text, this.xs(x), this.ys(y));
+    }
+
+    polygon(points, color = "#008800BB") {
+        this.contextV.fillStyle = color;
+        this.contextV.fillStroke = color;
+        this.contextV.beginPath();
+        this.contextV.moveTo(this.xsPolygon(points[0].x), this.ysPolygon(points[0].y));
+        for (let i = 1; i < points.length; i++) {
+            this.contextV.lineTo(this.xsPolygon(points[i].x), this.ysPolygon(points[i].y));
+        }
+        this.contextV.closePath();
+        this.contextV.fill()
+    }
+
+    render() {
+        this.context.drawImage(this.canvasV, 0, 0);
+    }
 }
+
