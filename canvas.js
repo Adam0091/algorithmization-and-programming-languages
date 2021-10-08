@@ -17,6 +17,17 @@ class Canvas {
 
         this.WINDOW = WINDOW;
         this.PI2 = 2 * Math.PI;
+
+        const wheel = (callbacks.wheel instanceof Function) ? callbacks.wheel : function () {};
+        const mouseup = (callbacks.mouseup instanceof Function) ? callbacks.mouseup : function () {};
+        const mousedown = (callbacks.mousedown instanceof Function) ? callbacks.mousedown : function () {};
+        const mousemove = (callbacks.mousemove instanceof Function) ? callbacks.mousemove : function () {};
+        const mouseleave = (callbacks.mouseleave instanceof Function) ? callbacks.mouseleave : function () {};
+        this.canvas.addEventListener('wheel', wheel);
+        this.canvas.addEventListener('mousedown', mousedown);
+        this.canvas.addEventListener('mouseup', mouseup);
+        this.canvas.addEventListener('mousemove', mousemove);
+        this.canvas.addEventListener('mouseleave', mouseleave);
     }
     xs(x) {
         return (x - this.WINDOW.LEFT) * (this.canvas.width / this.WINDOW.WIDTH);

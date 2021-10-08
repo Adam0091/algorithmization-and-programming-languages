@@ -33,7 +33,11 @@ window.onload = function () {
     const ZOOM_IN = 0.9;
 
     const sur = new Surfaces;
-    const canvas = new Canvas({ width: 570, height: 570, WINDOW, callbacks: {} });
+    const canvas = new Canvas({ width: 570, height: 570, WINDOW, callbacks: { wheel,
+                                                                              mouseup,
+                                                                              mousedown,
+                                                                              mouseleave,
+                                                                              mousemove } });
     const graph3D = new Graph3D({ WINDOW });
 
     const SCENE =  [
@@ -42,6 +46,44 @@ window.onload = function () {
        // sur.cylinder ()
     ];
     const LIGHT = new Light(10, -20, -10, 500);
+
+    function wheel(event) {
+        const delta = (event.wheelDelta > 0) ? ZOOM_OUT : ZOOM_IN;
+        graph3D.zoomMatrix(delta);
+        graph3D.transform(WINDOW.P1);
+        graph3D.transform(WINDOW.P2);
+        graph3D.transform(WINDOW.P3);
+    }
+    function mouseup() {
+        canRotate = false;
+    }
+    function mouseleave() {
+        mouseup();
+    }
+    function mousedown() {
+        canRotate = true;
+    }
+    function mousemove(event) {
+        if (canRotate) {
+            if (event.movementX) {
+                const alpha = -event.movementX / 250;
+                graph3D.rotateOxMatrix(alpha);
+                graph3D.transform(WINDOW.CAMERA);
+                graph3D.transform(WINDOW.P1);
+                graph3D.transform(WINDOW.P2);
+                graph3D.transform(WINDOW.P3);
+                
+            }
+            if (event.movementY) {
+                const alpha = -event.movementY / 250;
+                graph3D.rotateOyMatrix(alpha);
+                graph3D.transform(WINDOW.CAMERA);
+                graph3D.transform(WINDOW.P1);
+                graph3D.transform(WINDOW.P2);
+                graph3D.transform(WINDOW.P3);
+            }
+        }
+    }
 
     function printAllPolygons() {
         if (canPrint.polygons) {
