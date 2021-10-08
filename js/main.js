@@ -43,8 +43,7 @@ window.onload = function () {
 
     const SCENE =  [
         //sur.ellips(new Point(0,0,0))
-        sur.ellipsparaboloid()
-       // sur.cylinder ()
+        sur.hyperbolicParaboloid()
     ];
     const LIGHT = new Light(10, -20, -10, 500);
 
