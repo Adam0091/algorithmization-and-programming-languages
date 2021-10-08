@@ -30,4 +30,6 @@ window.onload = function () {
 
     const ZOOM_OUT = 1.1;
     const ZOOM_IN = 0.9;
+
+    const sur = new Surfaces;
 }
