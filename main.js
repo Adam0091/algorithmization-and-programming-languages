@@ -32,4 +32,11 @@ window.onload = function () {
     const ZOOM_IN = 0.9;
 
     const sur = new Surfaces;
+    const graph3D = new Graph3D({ WINDOW });
+
+    const SCENE =  [
+        //sur.ellips(new Point(0,0,0))
+        sur.ellipsparaboloid()
+       // sur.cylinder ()
+    ]; 
 }
