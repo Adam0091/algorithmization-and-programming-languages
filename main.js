@@ -39,6 +39,7 @@ window.onload = function () {
                                                                               mouseleave,
                                                                               mousemove } });
     const graph3D = new Graph3D({ WINDOW });
+    const ui = new UI({ callbacks: { move, printPoints, printEdges, printPolygons } });
 
     const SCENE =  [
         //sur.ellips(new Point(0,0,0))
@@ -84,7 +85,30 @@ window.onload = function () {
             }
         }
     }
+    function move(direction) {
+        switch (direction) {
+            case 'up':    graph3D.rotateOyMatrix(-Math.PI / 90); break;
+            case 'down':  graph3D.rotateOyMatrix(Math.PI / 90); break;
+            case 'left':  graph3D.rotateOxMatrix(-Math.PI / 90); break;
+            case 'right': graph3D.rotateOxMatrix(Math.PI / 90); break;
+        }
 
+        graph3D.transform(WINDOW.CAMERA);
+        graph3D.transform(WINDOW.CENTER);
+        graph3D.transform(WINDOW.P1);
+        graph3D.transform(WINDOW.P2);
+        graph3D.transform(WINDOW.P3);
+    }
+
+    function printPoints(value) {
+        canPrint.points = value;
+    }
+    function printEdges(value) {
+        canPrint.edges = value;
+    }
+    function printPolygons(value) {
+        canPrint.polygons = value;
+    }
     function printAllPolygons() {
         if (canPrint.polygons) {
             const polygons = [];
